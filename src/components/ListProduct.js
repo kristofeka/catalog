@@ -138,7 +138,7 @@ const styles = {
     left: 0,
     padding: "0px 8px 16px 8px",
     background: LISTPRODUCT.background,
-    top: 72,
+    top: 60,
     borderRadius: "0px 0px 8px 8px",
     boxShadow: "rgb(0 0 0 / 26%) 0px 8px 16px",
     transition: 'width 2s ease-in'

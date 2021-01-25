@@ -16,16 +16,17 @@ function ProductDetail() {
   });
 
   useEffect(() => {
+    const getData = async () => {
+      const response = await fetch(
+        `https://6007d065309f8b0017ee4d3a.mockapi.io/rakkishoppu/listDesign/${id}`
+      );
+      const data = await response.json();
+      setProduct(data);
+    };
     getData();
-  }, []);
+  }, [id]);
 
-  const getData = async () => {
-    const response = await fetch(
-      `https://6007d065309f8b0017ee4d3a.mockapi.io/rakkishoppu/listDesign/${id}`
-    );
-    const data = await response.json();
-    setProduct(data);
-  };
+
 
   const sizeChartA = () => {
     setSize({
