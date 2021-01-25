@@ -7,9 +7,9 @@ const Home = () => {
     return(
         <div style={styles.container}>
             <div style={styles.wrapHead}>
-                <Header />
+                <Header title="RAKKISHOPPU"/>
             </div>
-        <ListProduct />
+            <ListProduct />
         </div>
     )
 }

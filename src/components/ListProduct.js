@@ -1,6 +1,24 @@
 import React, { useState, useEffect } from "react";
 import CardProduct from "./CardProduct";
-import { InputGroup, FormControl } from "react-bootstrap";
+import LoadingContent from "./LoadingContent";
+import styled from "styled-components";
+
+import {LISTPRODUCT} from "../constans/colors"
+
+const InputText = styled.input`
+  width: 100%;
+  height: 48px;
+  background: transparent;
+  border: none;
+  color: ${LISTPRODUCT.iconColor};
+  ::placeholder {
+    color: white;
+  }
+  :focus {
+    outline: none;
+  }
+`;
+
 
 const ListProduct = () => {
   const [products, setProducts] = useState({
@@ -9,15 +27,17 @@ const ListProduct = () => {
     error: false,
   });
   const [cari, setCari] = useState("");
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
     getData();
   }, []);
 
   const getData = async () => {
     setProducts({
       loading: true,
-      data: [],
+      data: false,
       error: false,
     });
     const response = await fetch(
@@ -26,7 +46,7 @@ const ListProduct = () => {
     if (!response.ok) {
       setProducts({
         loading: false,
-        data: [],
+        data: false,
         error: true,
       });
     } else {
@@ -43,13 +63,26 @@ const ListProduct = () => {
     setCari(e.target.value);
   };
 
+  const handleScroll = () => {
+    const offset = window.scrollY;
+    if (offset > 200) {
+      setScrolled(true);
+    } else setScrolled(false);
+  };
+
+  console.log(scrolled);
+
   let content = null;
 
   if (products.error) {
-    content = <p>Error cuy</p>;
+    content = <p>Error Cuy</p>;
   }
   if (products.loading) {
-    content = <h2>Loading</h2>;
+    content = (
+      <div style={{ marginTop: 48 }}>
+        <LoadingContent />
+      </div>
+    );
   }
   if (products.data) {
     content = (
@@ -72,14 +105,18 @@ const ListProduct = () => {
 
   return (
     <div style={styles.container}>
-      <InputGroup className="mb-5">
-        <FormControl
-          id="inlineFormInputGroup"
-          onChange={updateSearch}
-          placeholder="Search Design"
-          size="lg"
-        />
-      </InputGroup>
+      <div style={scrolled ? styles.scrolled : styles.scroll}>
+        <div style={styles.wrapSearch}>
+          <div style={styles.iconSearch}>
+            <i className="fas fa-search"></i>
+          </div>
+          <InputText
+            onChange={updateSearch}
+            type="text"
+            placeholder="Cari desain"
+          ></InputText>
+        </div>
+      </div>
       {content}
     </div>
   );
@@ -90,6 +127,34 @@ const styles = {
     padding: "0px 16px",
     position: "relative",
     top: -260,
+  },
+  scroll: {
+    position: "relative",
+  },
+  scrolled: {
+    position: "fixed",
+    zIndex: 1,
+    width: "100%",
+    left: 0,
+    padding: "0px 8px 16px 8px",
+    background: LISTPRODUCT.background,
+    top: 72,
+    borderRadius: "0px 0px 8px 8px",
+    boxShadow: "rgb(0 0 0 / 26%) 0px 8px 16px",
+    transition: 'width 2s ease-in'
+  },
+  wrapSearch: {
+    display: "flex",
+    width: "100%",
+    padding: "4px 16px",
+    background: LISTPRODUCT.backgroundSearch,
+    borderRadius: 8,
+    alignItems: "center",
+  },
+  iconSearch: {
+    fontSize: "20px",
+    color: LISTPRODUCT.iconColor,
+    marginRight: 14,
   },
 };
 
