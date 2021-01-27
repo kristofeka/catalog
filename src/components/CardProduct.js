@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import LazyLoad from "react-lazyload";
+import { Row, Col } from "react-bootstrap";
 
 const display = "flex";
 
@@ -49,19 +51,21 @@ const CardProduct = ({ id, title, desc, image }) => {
   return (
     <WRAPCARD>
       <Link to={`/products/${id}`}>
-        <div className="row">
-          <div className="col-6">
+        <Row>
+          <Col>
             <WRAPCARDTEXT>
               <CARDTITLETEXT>{title}</CARDTITLETEXT>
               <CARDDESCTEXT>{desc}</CARDDESCTEXT>
             </WRAPCARDTEXT>
-          </div>
-          <div className="col-6">
-            <WRAPIMAGECARD>
-              <CARDIMAGE src={`assets/image/product/${image}`} alt="" />
-            </WRAPIMAGECARD>
-          </div>
-        </div>
+          </Col>
+          <Col>
+            <LazyLoad once={true} placeholder={<CARDIMAGE src={`assets/image/imageLoad.png`} alt="" />}>
+              <WRAPIMAGECARD>
+                <CARDIMAGE src={`assets/image/product/${image}`} alt="" />
+              </WRAPIMAGECARD>
+            </LazyLoad>
+          </Col>
+        </Row>
       </Link>
     </WRAPCARD>
   );

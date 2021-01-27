@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import styled from "styled-components";
 
 import { HEADER } from "../constans/colors";
 
@@ -8,35 +7,9 @@ const Header = (props) => {
   let back = useHistory();
   const [scrolled, setScrolled] = useState(false);
 
-  const StyledHeader = styled.div`
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    padding: ${scrolled ? '16px':'24px 16px'};
-    width: 100%;
-    background-color: ${HEADER.background};
-    position: ${scrolled ? "fixed" : "relative"};
-    top: 0;
-    left: 0;
-    transition: all 0.8s ease-in;
-  `;
-
-  const StyledIconHeader = styled.div`
-    font-size: 20px;
-    color: ${HEADER.iconColor};
-    margin-right: 16px;
-  `;
-
-  const StyledTextHeader = styled.div`
-    font-size: 18px;
-    font-weight: bold;
-    color: ${HEADER.color};
-    margin: 0;
-  `;
-
   const handleScroll = () => {
     const offset = window.scrollY;
-    if (offset > 200) {
+    if (offset > 100) {
       setScrolled(true);
     } else setScrolled(false);
   };
@@ -45,15 +18,41 @@ const Header = (props) => {
     window.addEventListener("scroll", handleScroll);
   });
 
+  const styles = {
+    wrapHeader: {
+      zIndex: 1 ,
+      display: "flex",
+      alignItems: "center",
+      padding: scrolled ? "16px" : "24px 16px",
+      width: "100%",
+      backgroundColor: HEADER.background,
+      position: scrolled ? "fixed" : "relative",
+      top: 0,
+      left: 0,
+      transition: 'padding 0.3s ease'
+    },
+    wrapHeaderIcon: {
+      fontSize: 20,
+      color: HEADER.iconColor,
+      marginRight: 16,
+    },
+    wrapHeaderText: {
+      fontSize: 18,
+    fontWeight: 'bold',
+    color: HEADER.color,
+    margin: 0,
+    },
+  };
+
   return (
-    <StyledHeader>
+    <div style={styles.wrapHeader}>
       {props.showIcon && (
-        <StyledIconHeader onClick={() => back.goBack()}>
+        <div style={styles.wrapHeaderIcon} onClick={() => back.goBack()}>
           <i className="fas fa-arrow-left"></i>
-        </StyledIconHeader>
+        </div>
       )}
-      <StyledTextHeader>{props.title}</StyledTextHeader>
-    </StyledHeader>
+      <div style={styles.wrapHeaderText}>{props.title}</div>
+    </div>
   );
 };
 

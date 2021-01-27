@@ -24,6 +24,7 @@ const styles = {
     height: 196,
     position: "relative",
     boxShadow: "rgb(0 0 0 / 14%) 0px 2px 16px",
+    marginBottom: '1.5rem'
   },
 };
 
