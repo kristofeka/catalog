@@ -20,7 +20,7 @@ const Header = (props) => {
 
   const styles = {
     wrapHeader: {
-      zIndex: 1 ,
+      zIndex: scrolled ? 2 : 1,
       display: "flex",
       alignItems: "center",
       padding: scrolled ? "16px" : "24px 16px",

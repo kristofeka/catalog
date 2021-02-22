@@ -77,9 +77,9 @@
             .map((product) => (
               <LazyLoad
                 key={product.idItem}
-                height={200}
-                offset={[-200, 100]}
-                className="row"
+                height={100}
+                style={{width: '100%',}}
+                offset={[-100, 100]}
                 placeholder={<LoadingContent />}
               >
                 <Col md={12} sm={12} className="mb-4">
@@ -123,12 +123,12 @@
       zIndex: 1,
       width: "100%",
       left: 0,
-      padding: "0px 8px 16px 8px",
+      padding: "4px 8px 16px 8px",
       background: LISTPRODUCT.background,
       top: 56,
       borderRadius: "0px 0px 8px 8px",
       boxShadow: "rgb(0 0 0 / 26%) 0px 8px 16px",
-      transition: "top 0.8s ease-in",
+      transition: "top 0.4s ease-in",
     }
   };
 

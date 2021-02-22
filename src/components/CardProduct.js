@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import LazyLoad from "react-lazyload";
 import { Row, Col } from "react-bootstrap";
+import { Event } from "../utils/Analytics";
 
 const display = "flex";
 
@@ -48,9 +49,14 @@ const CARDIMAGE = styled.img`
 `;
 
 const CardProduct = ({ id, title, desc, image }) => {
+
+  const trackingProduct = () => {
+    Event("Product", "lihat produk", title)
+  }
+
   return (
     <WRAPCARD>
-      <Link to={`/products/${id}`}>
+      <Link to={`/products/${id}`} onClick={trackingProduct}>
         <Row>
           <Col>
             <WRAPCARDTEXT>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Header, NavbarBottom } from "../components";
+import { PageView, initGA } from "../utils/Analytics";
+import { Helmet } from "react-helmet";
 
 import { PRODUCTDETAIL } from "../constans/colors";
 
@@ -16,6 +18,8 @@ function ProductDetail() {
   });
 
   useEffect(() => {
+    initGA();
+    PageView();
     const getData = async () => {
       const response = await fetch(
         `https://6007d065309f8b0017ee4d3a.mockapi.io/rakkishoppu/listDesign/${id}`
@@ -26,8 +30,6 @@ function ProductDetail() {
     getData();
   }, [id]);
 
-
-
   const sizeChartA = () => {
     setSize({
       sizes: true,
@@ -36,7 +38,7 @@ function ProductDetail() {
       lebar: "18",
       sisi: "10",
     });
-  }
+  };
   const sizeChartB = () => {
     setSize({
       sizes: true,
@@ -45,7 +47,7 @@ function ProductDetail() {
       lebar: "25",
       sisi: "10",
     });
-  }
+  };
   const sizeChartC = () => {
     setSize({
       sizes: true,
@@ -54,7 +56,7 @@ function ProductDetail() {
       lebar: "30",
       sisi: "10",
     });
-  }
+  };
   const sizeChartD = () => {
     setSize({
       sizes: true,
@@ -63,8 +65,8 @@ function ProductDetail() {
       lebar: "35",
       sisi: "10",
     });
-  }
-  
+  };
+
   const sendOnWhatsApp = () => {
     window.open(
       `https://api.whatsapp.com/send?phone=6281382086321&text=Pakai desain yang ini ya ${window.location.href}`
@@ -73,6 +75,13 @@ function ProductDetail() {
 
   return (
     <div style={styles.container}>
+      <Helmet>
+        <title>{product.nameItem}</title>
+        <meta
+          name="description"
+          content="custom paperbag atau tas kertas murah, cepat dan berkualitas"
+        />
+      </Helmet>
       <Header showIcon title="Detail Produk" />
       <div style={styles.wrapImage}>
         <div style={styles.wrapImageText}>
@@ -110,48 +119,48 @@ function ProductDetail() {
           <div
             style={{
               padding: "8px 16px",
-              background: size.ukuran === "A" ? '#FF76A7' : '#35405a',
+              background: size.ukuran === "A" ? "#FF76A7" : "#35405a",
               color: "white",
               borderRadius: 4,
               marginRight: 8,
             }}
-            onClick= {sizeChartA}
+            onClick={sizeChartA}
           >
             Size A
           </div>
           <div
             style={{
               padding: "8px 16px",
-              background: size.ukuran === "B" ? '#FF76A7' : '#35405a',
+              background: size.ukuran === "B" ? "#FF76A7" : "#35405a",
               color: "white",
               borderRadius: 4,
               marginRight: 8,
             }}
-            onClick= {sizeChartB}
+            onClick={sizeChartB}
           >
             Size B
           </div>
           <div
             style={{
               padding: "8px 16px",
-              background: size.ukuran === "C" ? '#FF76A7' : '#35405a',
+              background: size.ukuran === "C" ? "#FF76A7" : "#35405a",
               color: "white",
               borderRadius: 4,
               marginRight: 8,
             }}
-            onClick= {sizeChartC}
+            onClick={sizeChartC}
           >
             Size C
           </div>
           <div
             style={{
               padding: "8px 16px",
-              background: size.ukuran === "D" ? '#FF76A7' : '#35405a',
+              background: size.ukuran === "D" ? "#FF76A7" : "#35405a",
               color: "white",
               borderRadius: 4,
               marginRight: 8,
             }}
-            onClick= {sizeChartD}
+            onClick={sizeChartD}
           >
             Size D
           </div>

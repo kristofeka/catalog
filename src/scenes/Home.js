@@ -1,5 +1,7 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Header, ListProduct } from "../components";
+import { PageView, initGA } from "../utils/Analytics";
+import { Helmet } from "react-helmet";
 
 const Home = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -12,13 +14,22 @@ const Home = () => {
   };
 
   useEffect(() => {
+    initGA();
+    PageView();
     window.addEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <div style={styles.container}>
+      <Helmet>
+        <title>RAKKISHOPPU</title>
+        <meta
+          name="description"
+          content="custom paperbag atau tas kertas murah, cepat dan berkualitas"
+        />
+      </Helmet>
       <div style={styles.wrapHead}>
-          {scrolled && <Header title="RAKKISHOPPU" /> }
+        {scrolled && <Header title="RAKKISHOPPU" />}
         {/* <Header title="RAKKISHOPPU" /> */}
         <h1 style={{ padding: "0px 20px", fontSize: 48, color: "#FF76A7" }}>
           Katalog{" "}
